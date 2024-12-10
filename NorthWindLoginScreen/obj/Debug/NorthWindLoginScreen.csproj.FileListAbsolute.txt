@@ -1,0 +1,14 @@
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.csproj.AssemblyReference.cache
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.AnaForm.resources
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.GirisFormu.resources
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.Properties.Resources.resources
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.csproj.GenerateResource.cache
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.csproj.CoreCompileInputs.cache
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\bin\Debug\NorthWindLoginScreen.exe.config
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\bin\Debug\NorthWindLoginScreen.exe
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\bin\Debug\NorthWindLoginScreen.pdb
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.exe
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.pdb
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.KategoriIslemleri.resources
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.UrunIslemleri.resources
+C:\Users\KAPAR\source\repos\NorthWindLoginScreen\NorthWindLoginScreen\obj\Debug\NorthWindLoginScreen.KategoriEkle.resources
