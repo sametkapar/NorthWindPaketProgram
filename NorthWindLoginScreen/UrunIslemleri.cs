@@ -15,6 +15,7 @@ namespace NorthWindLoginScreen
 {
     public partial class UrunIslemleri : Form
     {
+        int rowindex, rowindex2 = -1;
         public UrunIslemleri()
         {
             InitializeComponent();
@@ -91,7 +92,7 @@ namespace NorthWindLoginScreen
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = "SELECT CategoryID, CategoryName FROM Categories";
             con.Open();
-            SqlDataReader reader =  cmd.ExecuteReader();
+            SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 Category k = new Category();
@@ -109,6 +110,135 @@ namespace NorthWindLoginScreen
         {
             KategoriEkle ki = new KategoriEkle();
             ki.Show();
+        }
+
+        private void DGV_Urun_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DGV_Urun.ClearSelection();
+                rowindex = DGV_Urun.HitTest(e.X, e.Y).RowIndex;
+                if (rowindex != -1)
+                {
+                    //MessageBox.Show("Sağ Button", "Tıklandı");
+                    contextMenuStrip1.Show(DGV_Urun, e.X, e.Y);
+
+                    DGV_Urun.Rows[rowindex].Selected = true;
+                }
+            }
+        }
+
+        private void düzenleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rowindex != -1)
+            {
+                btn_ekle_duzenle.Text = "Düzenle";
+                int id = Convert.ToInt32(DGV_Urun.Rows[rowindex].Cells[0].Value);
+                SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS; Initial Catalog=NORTHWND; Integrated Security=True");
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock, ReorderLevel, Discontinued FROM Products WHERE ProductID = @id";
+                cmd.Parameters.AddWithValue("@id", id);
+                try
+                {
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        tb_ID.Text = reader.GetInt32(0).ToString();
+                        tb_name.Text = reader.GetString(1);
+                        tb_price.Text = reader.GetDecimal(2).ToString();
+                        tb_stock.Text = reader.GetInt16(3).ToString();
+                        tb_reOrderLevel.Text = reader.GetInt16(4).ToString();
+                        bool dis = reader.GetBoolean(5);
+                        if (dis == true)
+                        {
+                            rb_satisEvet.Checked = true;
+                        }
+                        else
+                        {
+                            rb_satisHayir.Checked = true;
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Kategori getirilirken bir hata oluştu", "Hata");
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+        private void btn_ekle_duzenle_Click(object sender, EventArgs e)
+        {
+            if (btn_ekle_duzenle.Text == "Ekle")
+            {
+                if (!string.IsNullOrEmpty(tb_name.Text))
+                {
+                    SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS; Initial Catalog=NORTHWND; Integrated Security=True");
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandText = "INSERT INTO Products (ProductName, SupplierID, CategoryID, UnitPrice, UnitInStock, ReorderLevel, Discontinued) VALUES (@name,@sID,@cID,@price,@stok,@minstok,@dis)";
+                    cmd.Parameters.AddWithValue("@name", tb_name.Text);
+                    int sid = Convert.ToInt32(DGV_tedarikci.Rows[rowindex].Cells[0].Value);
+                    cmd.Parameters.AddWithValue("@sID", sid);
+                    int cid = cb_kategoriAdi.SelectedIndex;
+                    cmd.Parameters.AddWithValue("@cID", cid);
+                    decimal price = Convert.ToDecimal(tb_price.Text);
+                    cmd.Parameters.AddWithValue("@price", price);
+                    int stok = Convert.ToInt16(tb_stock.Text);
+                    cmd.Parameters.AddWithValue("@stok", stok);
+                    int reord = Convert.ToInt16(tb_reOrderLevel.Text);
+                    cmd.Parameters.AddWithValue("@minstok", reord);
+                    bool dis = rb_satisEvet.Checked;
+                    if (dis == true)
+                    {
+                        cmd.Parameters.AddWithValue("@dis", rb_satisEvet.Checked);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@dis", rb_satisHayir.Checked);
+                    }
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Ürün başarıyla eklenmiştir.", "Başarılı");
+
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Ürün ekleme işleminde bir hata ile karşılaşıldı", "Hata");
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
+                    KategoriListele();
+                    tb_ID.Text = tb_name.Text = tb_price.Text = tb_reOrderLevel.Text = tb_stock.Text = "";
+
+
+                }
+            }
+            if (btn_ekle_duzenle.Text == "Düzenle")
+            {
+                if (!string.IsNullOrEmpty(tb_name.Text))
+                {
+
+                }
+            }
+        }
+        private void DGV_tedarikci_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                DGV_tedarikci.ClearSelection();
+                rowindex2 = DGV_tedarikci.HitTest(e.X, e.Y).RowIndex;
+                if (rowindex2 != -1)
+                {
+                    DGV_tedarikci.Rows[rowindex2].Selected = true;
+                }
+            }
         }
     }
 }
